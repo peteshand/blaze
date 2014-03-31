@@ -1,0 +1,147 @@
+package blaze.model.viewPort 
+{
+	import blaze.behaviors.ResizeBehavior;
+	import blaze.utils.layout.Alignment;
+	import blaze.utils.layout.Dimensions;
+	import flash.display.Stage;
+	import flash.events.Event;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import org.osflash.signals.Signal;
+	/**
+	 * ...
+	 * @author P.J.Shand
+	 */
+	public class ViewPort 
+	{
+		/*protected static var _allowInstantiate:Boolean;
+		protected static var _instance:ViewPort;
+		
+		public function ViewPort()
+		{
+			if (!_allowInstantiate)
+			{
+				throw new Error("ViewPort can only be accessed through ViewPort.getInstance()");
+			}
+		}
+		
+		public static function getInstance():ViewPort
+		{
+			if (!_instance) {
+				_allowInstantiate = true;
+				_instance = new ViewPort();
+				_allowInstantiate = false;
+			}
+			return _instance;
+		}*/
+		
+		private var stage:Stage;
+		
+		private var _zoomType:int = Dimensions.STRETCH;
+		private var resizeBehavior:ResizeBehavior;
+		
+		private var viewWidth:int = -1;
+		private var viewHeight:int = -1;
+		
+		private var displayRatio:Number;
+		private var screenRatio:Number;
+		
+		public var rect:Rectangle;
+		//private var dimensions:Dimensions;
+		public var update:Signal = new Signal();
+		
+		public var optimalScreenFraction:Point = new Point( -1, -1);
+		public var offsetFraction:Point = new Point(-1,-1);
+		public var alignment:String = Alignment.MIDDLE;
+		
+		public function ViewPort():void
+		{
+			
+		}
+		
+		public function init(stage:Stage):void 
+		{
+			this.stage = stage;
+			
+			if (viewWidth == -1) viewWidth = stage.stageWidth;
+			if (viewHeight == -1) viewHeight = stage.stageHeight;
+			
+			rect = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
+			
+			resizeBehavior = new ResizeBehavior()
+			resizeBehavior.addResizeListener(stage, OnResize);
+		}
+		
+		public function optimalScreenDimensions(width:int, height:int):void
+		{
+			optimalScreenFraction.setTo( -1, -1);
+			viewWidth = width;
+			viewHeight = height;
+		}
+		
+		private function OnResize():void 
+		{
+			if (optimalScreenFraction.x != -1) viewWidth = stage.stageWidth * optimalScreenFraction.x;
+			if (optimalScreenFraction.y != -1) viewHeight = stage.stageHeight * optimalScreenFraction.y;
+			
+			rect = Dimensions.calculate(stage.stageWidth, stage.stageHeight, viewWidth, viewHeight, zoomType);
+			screenRatio = Dimensions.objectRatio;
+			displayRatio = Dimensions.displayRatio;
+			
+			trace(rect);
+			
+			if (alignment == Alignment.LEFT || alignment == Alignment.TOP_LEFT || alignment == Alignment.BOTTOM_LEFT) {
+				rect.x = 0;
+			}
+			else if (alignment == Alignment.RIGHT || alignment == Alignment.TOP_RIGHT || alignment == Alignment.BOTTOM_RIGHT) {
+				rect.x = stage.stageWidth - rect.width;
+			}
+			
+			if (alignment == Alignment.TOP || alignment == Alignment.TOP_LEFT || alignment == Alignment.TOP_RIGHT) {
+				rect.y = 0;
+			}
+			else if (alignment == Alignment.BOTTOM || alignment == Alignment.BOTTOM_LEFT || alignment == Alignment.BOTTOM_RIGHT) {
+				rect.y = stage.stageHeight - rect.height;
+			}
+			
+			if (offsetFraction.x != -1) rect.x += offsetFraction.x * stage.stageWidth;
+			if (offsetFraction.y != -1) rect.y += offsetFraction.y * stage.stageHeight;
+			
+			update.dispatch();
+		}
+		
+		public function get zoomType():int 
+		{
+			return _zoomType;
+		}
+		
+		public function set zoomType(value:int):void 
+		{
+			_zoomType = value;
+		}
+		
+		public function get scaleHorizontal():Number 
+		{
+			return stage.stageWidth / viewWidth;
+		}
+		
+		public function get scaleVertical():Number 
+		{
+			return stage.stageHeight / viewHeight;
+		}
+		
+		public function get scaleMin():Number 
+		{
+			if (displayRatio < viewWidth / viewHeight) return scaleHorizontal;
+			else return scaleVertical;
+		}
+		
+		public function get scaleMax():Number 
+		{
+			if (displayRatio < viewWidth / viewHeight) return scaleVertical;
+			else return scaleHorizontal;
+		}
+		
+	}
+
+}
