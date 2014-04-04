@@ -105,6 +105,7 @@ package blaze.starling
 		
 		public function set instanceIndex(value:int):void 
 		{
+			trace("instanceIndex = " + instanceIndex);
 			_instanceIndex = value;
 			superSceneChangeBehavior = new SuperSceneChangeBehavior(Show, Hide, instanceIndex);
 		}

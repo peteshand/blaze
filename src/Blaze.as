@@ -56,9 +56,9 @@ package
 		 * SceneModel contains the current scene and subscene index of the application.
 		 * <p>SceneModel can be accessed via Blaze.scene</p>
 		 */
-		static public function get scene():SceneModel 
+		static public function get sceneModel():SceneModel 
 		{
-			return instance().scene;
+			return instance().sceneModel;
 		}
 		
 		/**

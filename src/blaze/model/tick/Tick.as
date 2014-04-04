@@ -9,27 +9,6 @@ package blaze.model.tick
 	 */
 	public class Tick 
 	{
-		/*protected static var _allowInstantiate:Boolean;
-		protected static var _instance:Tick;
-		
-		public function Tick()
-		{
-			if (!_allowInstantiate)
-			{
-				throw new Error("Tick can only be accessed through Tick.getInstance()");
-			}
-		}
-		
-		public static function getInstance():Tick
-		{
-			if (!_instance) {
-				_allowInstantiate = true;
-				_instance = new Tick();
-				_allowInstantiate = false;
-			}
-			return _instance;
-		}*/
-		
 		private var stage:Stage;
 		public var update:Signal = new Signal();
 		

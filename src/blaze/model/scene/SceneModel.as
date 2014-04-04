@@ -9,31 +9,6 @@ package blaze.model.scene
 	
 	public class SceneModel
 	{
-		/*protected static var _allowInstantiate:Boolean;
-		protected static var _instance:SceneModel;
-		
-		public function SceneModel()
-		{
-			if (!_allowInstantiate)
-			{
-				throw new Error("SceneModel can only be accessed through SceneModel.getInstance()");
-			}
-			else {
-				index = 0;
-				sceneHistory.push([0,0]);
-			}
-		}
-		
-		public static function getInstance():SceneModel
-		{
-			if (!_instance) {
-				_allowInstantiate = true;
-				_instance = new SceneModel();
-				_allowInstantiate = false;
-			}
-			return _instance;
-		}*/
-		
 		private var sceneHistory:Vector.<Array> = new Vector.<Array>();
 		private var backIndex:int = 0;
 		private var recordHistory:Boolean = true;
@@ -48,7 +23,7 @@ package blaze.model.scene
 		public var subIndexChange:Signal = new Signal();
 		
 		private var sceneObjects:Vector.<SceneObject> = new Vector.<SceneObject>(0, false);
-		private var currentSceneObject:SceneObject = new SceneObject(-1);
+		private var currentSceneObject:SceneObject = new SceneObject(0);
 		private var lastSceneObject:SceneObject = new SceneObject(-1);
 		
 		public function SceneModel():void

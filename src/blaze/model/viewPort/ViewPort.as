@@ -106,53 +106,20 @@ package blaze.model.viewPort
 		
 		public function get scaleHorizontal():Number 
 		{
-			trace("viewWidth = " + viewWidth);
-			trace("_optimalScreenDimensions.x = " + _optimalScreenDimensions.x);
-			
-			trace("   scaleHorizontal = " + viewWidth / _optimalScreenDimensions.x);
 			return viewWidth / _optimalScreenDimensions.x;
-			/*trace("_optimalScreenDimensions.x = " + _optimalScreenDimensions.x);
-			trace("_optimalScreenDimensions.y = " + _optimalScreenDimensions.y);
-			trace("viewWidth = " + viewWidth);
-			trace("viewHeight = " + viewHeight);
-			
-			trace("scaleHorizontal = " + Number(stage.stageWidth / viewWidth));
-			
-			return viewWidth / stage.stageWidth;*/
 		}
 		
 		public function get scaleVertical():Number 
 		{
-			trace("viewHeight = " + viewHeight);
-			trace("_optimalScreenDimensions.y = " + _optimalScreenDimensions.y);
-			
-			trace("   scaleVertical = " + viewHeight / _optimalScreenDimensions.y);
 			return viewHeight / _optimalScreenDimensions.y;
-			
-			/*trace("scaleVertical = " + Number(stage.stageHeight / viewHeight));
-			
-			trace("stage.stageHeight = " + stage.stageHeight);
-			trace("viewHeight = " + viewHeight);
-			
-			trace("viewWidth = " + viewWidth);
-			
-			return viewHeight / stage.stageHeight;*/
 		}
 		
 		public function get scaleMin():Number 
 		{
-			trace("displayRatio = " + displayRatio);
-			trace("viewWidth / viewHeight = " + viewWidth / viewHeight);
-			
-			//trace("scaleHorizontal = " + scaleHorizontal);
-			//trace("scaleVertical = " + scaleVertical);
-			
 			if (displayRatio < _optimalScreenDimensions.x / _optimalScreenDimensions.y) {
-				trace("min = h:" + scaleHorizontal);
 				return scaleHorizontal;
 			}
 			else {
-				trace("min = v:" + scaleVertical);
 				return scaleVertical;
 			}
 		}
@@ -160,15 +127,11 @@ package blaze.model.viewPort
 		public function get scaleMax():Number 
 		{
 			if (displayRatio < _optimalScreenDimensions.x / _optimalScreenDimensions.y) {
-				trace("max = v:" + scaleVertical);
 				return scaleVertical;
 			}
 			else {
-				trace("max = h:" + scaleHorizontal);
 				return scaleHorizontal;
 			}
 		}
-		
 	}
-
 }
