@@ -22,7 +22,7 @@ package blaze.behaviors
 			this.showFunction = showFunction;
 			this.hideFunction = hideFunction;
 			
-			scene = Blaze.instance(instanceIndex).scene;
+			scene = Blaze.instance(instanceIndex).sceneModel;
 			
 			scene.indexChange.add(OnSceneChange);
 			OnSceneChange();

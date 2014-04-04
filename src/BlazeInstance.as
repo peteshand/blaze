@@ -15,7 +15,7 @@ package
 		public var index:int;
 		public var stage:Stage;
 		private var _language:LanguageModel;
-		private var _scene:SceneModel;
+		private var _sceneModel:SceneModel;
 		
 		private var _renderer:RenderModel;
 		private var _tick:Tick;
@@ -64,7 +64,7 @@ package
 			if (!_viewPort) {
 				if (!stage) throw new Error("Blaze.stage must be set before viewPort can be accessed");
 				_viewPort = new ViewPort();
-				_viewPort.init(stage);
+				_viewPort.init(stage, renderer);
 			}
 			return _viewPort;
 		}
@@ -73,10 +73,10 @@ package
 		 * SceneModel currents the current scene and subscene index of the application.
 		 * <p>SceneModel can be accessed via Blaze.instance(index).scene</p>
 		 */
-		public function get scene():SceneModel 
+		public function get sceneModel():SceneModel 
 		{
-			if (!_scene) _scene = new SceneModel();
-			return _scene;
+			if (!_sceneModel) _sceneModel = new SceneModel();
+			return _sceneModel;
 		}
 		
 		/**

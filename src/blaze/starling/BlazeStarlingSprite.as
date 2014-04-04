@@ -105,6 +105,7 @@ package blaze.starling
 		
 		public function set instanceIndex(value:int):void 
 		{
+			trace("instanceIndex = " + instanceIndex);
 			_instanceIndex = value;
 			superSceneChangeBehavior = new SuperSceneChangeBehavior(Show, Hide, instanceIndex);
 		}
@@ -197,6 +198,7 @@ class LocationSprite extends BlazeStarlingSprite
 		this.y = Math.round(viewPort.rect.height * location.y);
 		
 		if (scaleToScreen) {
+			trace("viewPort.scaleMin = " + viewPort.scaleMin);
 			this.scaleX = this.scaleY = viewPort.scaleMin;
 		}
 	}

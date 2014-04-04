@@ -45,7 +45,7 @@ package blaze.behaviors
 			super();
 			this.instanceIndex = instanceIndex;
 			
-			scene = Blaze.instance(instanceIndex).scene;
+			scene = Blaze.instance(instanceIndex).sceneModel;
 			
 			this.Show = Show;
 			this.Hide = Hide;

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <flex-config xmlns="http://www.adobe.com/2006/flex-config">
-  <output>C:\Users\pjshand\Desktop\Work\CBA\blaze\.\bin\blaze.swc</output>
+  <output>C:\_projects\CBA\blaze\.\bin\blaze.swc</output>
   <use-network>true</use-network>
   <warnings>true</warnings>
   <benchmark>false</benchmark>
@@ -16,20 +16,21 @@
     <use-resource-bundle-metadata>true</use-resource-bundle-metadata>
     <verbose-stacktraces>false</verbose-stacktraces>
     <source-path>
-      <path-element>c:\users\pjshand\desktop\work\cba\blaze\src</path-element>
-      <path-element>c:\users\pjshand\desktop\work\cba\blaze\lib</path-element>
+      <path-element>c:\_projects\cba\blaze\src</path-element>
+      <path-element>c:\_projects\cba\blaze\lib</path-element>
     </source-path>
     <external-library-path append="true">
-      <path-element>c:\users\pjshand\desktop\work\cba\blaze\lib\starling.swc</path-element>
-      <path-element>c:\users\pjshand\desktop\work\cba\blaze\lib\away3d-core-fp11_4_1_6.swc</path-element>
-      <path-element>c:\users\pjshand\desktop\work\cba\blaze\lib\as3-signals-v0.9-beta.swc</path-element>
-      <path-element>c:\users\pjshand\desktop\work\cba\blaze\lib\greensock.swc</path-element>
-      <path-element>c:\users\pjshand\desktop\work\cba\blaze\lib\airglobal.swc</path-element>
+      <path-element>c:\_projects\cba\blaze\lib\starling.swc</path-element>
+      <path-element>c:\_projects\cba\blaze\lib\away3d-core-fp11_4_1_6.swc</path-element>
+      <path-element>c:\_projects\cba\blaze\lib\as3-signals-v0.9-beta.swc</path-element>
+      <path-element>c:\_projects\cba\blaze\lib\greensock.swc</path-element>
+      <path-element>c:\_projects\cba\blaze\lib\airglobal.swc</path-element>
     </external-library-path>
   </compiler>
   <include-classes>
     <class>Blaze</class>
     <class>BlazeInstance</class>
+    <class>blaze.away3d.BlazeCamera3D</class>
     <class>blaze.away3d.BlazeContainer3D</class>
     <class>blaze.away3d.BlazeScene3D</class>
     <class>blaze.away3d.Image</class>
@@ -53,6 +54,7 @@
     <class>blaze.starling.layers.StarlingLayer</class>
     <class>blaze.starling.utils.ImageLoader</class>
     <class>blaze.utils.Range</class>
+    <class>blaze.utils.StringUtils</class>
     <class>blaze.utils.layout.Alignment</class>
     <class>blaze.utils.layout.Dimensions</class>
     <class>blaze.utils.layout.Orientation</class>

@@ -1,6 +1,7 @@
 package blaze.model.viewPort 
 {
 	import blaze.behaviors.ResizeBehavior;
+	import blaze.model.render.RenderModel;
 	import blaze.utils.layout.Alignment;
 	import blaze.utils.layout.Dimensions;
 	import flash.display.Stage;
@@ -14,28 +15,8 @@ package blaze.model.viewPort
 	 */
 	public class ViewPort 
 	{
-		/*protected static var _allowInstantiate:Boolean;
-		protected static var _instance:ViewPort;
-		
-		public function ViewPort()
-		{
-			if (!_allowInstantiate)
-			{
-				throw new Error("ViewPort can only be accessed through ViewPort.getInstance()");
-			}
-		}
-		
-		public static function getInstance():ViewPort
-		{
-			if (!_instance) {
-				_allowInstantiate = true;
-				_instance = new ViewPort();
-				_allowInstantiate = false;
-			}
-			return _instance;
-		}*/
-		
 		private var stage:Stage;
+		private var renderer:RenderModel;
 		
 		private var _zoomType:int = Dimensions.STRETCH;
 		private var resizeBehavior:ResizeBehavior;
@@ -50,6 +31,7 @@ package blaze.model.viewPort
 		//private var dimensions:Dimensions;
 		public var update:Signal = new Signal();
 		
+		public var _optimalScreenDimensions:Point = new Point();
 		public var optimalScreenFraction:Point = new Point( -1, -1);
 		public var offsetFraction:Point = new Point(-1,-1);
 		public var alignment:String = Alignment.MIDDLE;
@@ -59,12 +41,15 @@ package blaze.model.viewPort
 			
 		}
 		
-		public function init(stage:Stage):void 
+		public function init(stage:Stage, renderer:RenderModel):void 
 		{
 			this.stage = stage;
+			this.renderer = renderer;
 			
 			if (viewWidth == -1) viewWidth = stage.stageWidth;
 			if (viewHeight == -1) viewHeight = stage.stageHeight;
+			if (_optimalScreenDimensions.x == -1) _optimalScreenDimensions.x = stage.stageWidth
+			if (_optimalScreenDimensions.y == -1) _optimalScreenDimensions.y = stage.stageHeight;
 			
 			rect = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
 			
@@ -75,6 +60,7 @@ package blaze.model.viewPort
 		public function optimalScreenDimensions(width:int, height:int):void
 		{
 			optimalScreenFraction.setTo( -1, -1);
+			_optimalScreenDimensions.setTo(width, height);
 			viewWidth = width;
 			viewHeight = height;
 		}
@@ -84,11 +70,9 @@ package blaze.model.viewPort
 			if (optimalScreenFraction.x != -1) viewWidth = stage.stageWidth * optimalScreenFraction.x;
 			if (optimalScreenFraction.y != -1) viewHeight = stage.stageHeight * optimalScreenFraction.y;
 			
-			rect = Dimensions.calculate(stage.stageWidth, stage.stageHeight, viewWidth, viewHeight, zoomType);
+			rect = Dimensions.calculate(stage.stageWidth / renderer.proxySlotsUsed, stage.stageHeight, viewWidth, viewHeight, zoomType);
 			screenRatio = Dimensions.objectRatio;
 			displayRatio = Dimensions.displayRatio;
-			
-			trace(rect);
 			
 			if (alignment == Alignment.LEFT || alignment == Alignment.TOP_LEFT || alignment == Alignment.BOTTOM_LEFT) {
 				rect.x = 0;
@@ -122,24 +106,67 @@ package blaze.model.viewPort
 		
 		public function get scaleHorizontal():Number 
 		{
-			return stage.stageWidth / viewWidth;
+			trace("viewWidth = " + viewWidth);
+			trace("_optimalScreenDimensions.x = " + _optimalScreenDimensions.x);
+			
+			trace("   scaleHorizontal = " + viewWidth / _optimalScreenDimensions.x);
+			return viewWidth / _optimalScreenDimensions.x;
+			/*trace("_optimalScreenDimensions.x = " + _optimalScreenDimensions.x);
+			trace("_optimalScreenDimensions.y = " + _optimalScreenDimensions.y);
+			trace("viewWidth = " + viewWidth);
+			trace("viewHeight = " + viewHeight);
+			
+			trace("scaleHorizontal = " + Number(stage.stageWidth / viewWidth));
+			
+			return viewWidth / stage.stageWidth;*/
 		}
 		
 		public function get scaleVertical():Number 
 		{
-			return stage.stageHeight / viewHeight;
+			trace("viewHeight = " + viewHeight);
+			trace("_optimalScreenDimensions.y = " + _optimalScreenDimensions.y);
+			
+			trace("   scaleVertical = " + viewHeight / _optimalScreenDimensions.y);
+			return viewHeight / _optimalScreenDimensions.y;
+			
+			/*trace("scaleVertical = " + Number(stage.stageHeight / viewHeight));
+			
+			trace("stage.stageHeight = " + stage.stageHeight);
+			trace("viewHeight = " + viewHeight);
+			
+			trace("viewWidth = " + viewWidth);
+			
+			return viewHeight / stage.stageHeight;*/
 		}
 		
 		public function get scaleMin():Number 
 		{
-			if (displayRatio < viewWidth / viewHeight) return scaleHorizontal;
-			else return scaleVertical;
+			trace("displayRatio = " + displayRatio);
+			trace("viewWidth / viewHeight = " + viewWidth / viewHeight);
+			
+			//trace("scaleHorizontal = " + scaleHorizontal);
+			//trace("scaleVertical = " + scaleVertical);
+			
+			if (displayRatio < _optimalScreenDimensions.x / _optimalScreenDimensions.y) {
+				trace("min = h:" + scaleHorizontal);
+				return scaleHorizontal;
+			}
+			else {
+				trace("min = v:" + scaleVertical);
+				return scaleVertical;
+			}
 		}
 		
 		public function get scaleMax():Number 
 		{
-			if (displayRatio < viewWidth / viewHeight) return scaleVertical;
-			else return scaleHorizontal;
+			if (displayRatio < _optimalScreenDimensions.x / _optimalScreenDimensions.y) {
+				trace("max = v:" + scaleVertical);
+				return scaleVertical;
+			}
+			else {
+				trace("max = h:" + scaleHorizontal);
+				return scaleHorizontal;
+			}
 		}
 		
 	}

@@ -8,8 +8,12 @@ package blaze.away3d.layers
 	import away3d.containers.View3D;
 	import away3d.core.pick.IPicker;
 	import away3d.core.render.RendererBase;
+	import blaze.away3d.BlazeCamera3D;
 	import blaze.away3d.BlazeContainer3D;
 	import blaze.away3d.BlazeScene3D;
+	import blaze.model.language.LanguageModel;
+	import blaze.model.scene.SceneModel;
+	import blaze.model.tick.Tick;
 	//import blaze.away3d.managers.VirtualCursor3DManager;
 	import blaze.model.render.RenderModel;
 	import blaze.model.viewPort.ViewPort;
@@ -25,24 +29,32 @@ package blaze.away3d.layers
 	 */
 	public class AwayLayer extends View3D implements IAwayLayer
 	{
-		protected var renderModel:RenderModel;
-		protected var viewPort:ViewPort;
+		public var renderModel:RenderModel;
+		public var viewPort:ViewPort;
+		public var sceneModel:SceneModel;
+		public var language:LanguageModel;
+		public var tick:Tick;
 		
 		public var lens:PerspectiveLens;
 		public var orthographicLens:OrthographicLens;
 		
 		public var onAddToStage:Signal = new Signal();
 		public var id:String;
+		public var instanceIndex:int;
 		
 		private var _root:BlazeContainer3D;
 		//protected var _virtualCursor3DManager:VirtualCursor3DManager;
 		
 		public function AwayLayer(instanceIndex:int, scene:Scene3D = null, camera1:Camera3D = null, renderer:RendererBase = null, forceSoftware:Boolean = false, profile:String = "baseline") 
 		{
+			this.instanceIndex = instanceIndex;
 			renderModel = Blaze.instance(instanceIndex).renderer;
 			viewPort = Blaze.instance(instanceIndex).viewPort;
+			sceneModel = Blaze.instance(instanceIndex).sceneModel;
+			language = Blaze.instance(instanceIndex).language;
+			tick = Blaze.instance(instanceIndex).tick;
 			
-			super(new BlazeScene3D(instanceIndex), camera, renderer, forceSoftware, profile);
+			super(new BlazeScene3D(instanceIndex), new BlazeCamera3D(viewPort), renderer, forceSoftware, profile);
 			
 			camera.z = -1000;
 			lens = PerspectiveLens(camera.lens);
