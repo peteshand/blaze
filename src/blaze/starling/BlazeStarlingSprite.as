@@ -197,6 +197,7 @@ class LocationSprite extends BlazeStarlingSprite
 		this.y = Math.round(viewPort.rect.height * location.y);
 		
 		if (scaleToScreen) {
+			trace("viewPort.scaleMin = " + viewPort.scaleMin);
 			this.scaleX = this.scaleY = viewPort.scaleMin;
 		}
 	}

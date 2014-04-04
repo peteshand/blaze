@@ -20,6 +20,7 @@ package blaze.starling.layers
 		
 		protected var _starling:Starling;
 		//protected var active:Boolean = false;
+		public var instanceIndex:int;
 		
 		private var _root:BlazeStarlingSprite;
 		
@@ -64,6 +65,7 @@ package blaze.starling.layers
 		
 		public function setStarling(starling:Starling, instanceIndex:int):void
 		{
+			this.instanceIndex = instanceIndex;
 			renderModel = Blaze.instance(instanceIndex).renderer;
 			viewPort = Blaze.instance(instanceIndex).viewPort;
 			viewPort.update.add(OnViewPortUpdate);
@@ -73,6 +75,11 @@ package blaze.starling.layers
 		public function set starling(value:Starling):void 
 		{
 			_starling = value;
+		}
+		
+		public function get starling():Starling 
+		{
+			return _starling;
 		}
 		
 		private function OnViewPortUpdate():void 

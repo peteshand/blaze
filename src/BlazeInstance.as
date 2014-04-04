@@ -64,7 +64,7 @@ package
 			if (!_viewPort) {
 				if (!stage) throw new Error("Blaze.stage must be set before viewPort can be accessed");
 				_viewPort = new ViewPort();
-				_viewPort.init(stage);
+				_viewPort.init(stage, renderer);
 			}
 			return _viewPort;
 		}

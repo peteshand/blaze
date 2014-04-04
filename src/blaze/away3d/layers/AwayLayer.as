@@ -8,6 +8,7 @@ package blaze.away3d.layers
 	import away3d.containers.View3D;
 	import away3d.core.pick.IPicker;
 	import away3d.core.render.RendererBase;
+	import blaze.away3d.BlazeCamera3D;
 	import blaze.away3d.BlazeContainer3D;
 	import blaze.away3d.BlazeScene3D;
 	//import blaze.away3d.managers.VirtualCursor3DManager;
@@ -33,16 +34,18 @@ package blaze.away3d.layers
 		
 		public var onAddToStage:Signal = new Signal();
 		public var id:String;
+		public var instanceIndex:int;
 		
 		private var _root:BlazeContainer3D;
 		//protected var _virtualCursor3DManager:VirtualCursor3DManager;
 		
 		public function AwayLayer(instanceIndex:int, scene:Scene3D = null, camera1:Camera3D = null, renderer:RendererBase = null, forceSoftware:Boolean = false, profile:String = "baseline") 
 		{
+			this.instanceIndex = instanceIndex;
 			renderModel = Blaze.instance(instanceIndex).renderer;
 			viewPort = Blaze.instance(instanceIndex).viewPort;
 			
-			super(new BlazeScene3D(instanceIndex), camera, renderer, forceSoftware, profile);
+			super(new BlazeScene3D(instanceIndex), new BlazeCamera3D(viewPort), renderer, forceSoftware, profile);
 			
 			camera.z = -1000;
 			lens = PerspectiveLens(camera.lens);

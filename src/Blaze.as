@@ -12,6 +12,7 @@ package
 	/**
 	 * ...
 	 * @author P.J.Shand
+	 * 
 	 */
 	public class Blaze 
 	{

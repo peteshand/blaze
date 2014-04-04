@@ -79,7 +79,7 @@ package blaze.model.render
 			context3dReadySignal.dispatch();
 			viewPort = Blaze.instance(instanceIndex).viewPort;
 			viewPort.update.add(OnViewPortUpdate);
-			viewPort.init(stage);
+			viewPort.init(stage, this);
 		}
 		
 		/*private function render():void
