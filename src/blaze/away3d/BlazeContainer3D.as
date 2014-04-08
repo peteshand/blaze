@@ -114,18 +114,48 @@ package blaze.away3d
 		public function get alpha():Number { return _alpha; }
 		public function set alpha(value:Number):void { _alpha = value; }
 		
-		public function get sceneIndex():int					{ return superSceneChangeBehavior.sceneIndex; }
-		public function set sceneIndex(value:int):void			{ superSceneChangeBehavior.sceneIndex = value; }
-		public function get sceneIndices():Array				{ return superSceneChangeBehavior.sceneIndices; }
-		public function set sceneIndices(value:Array):void		{ superSceneChangeBehavior.sceneIndices = value; }
-		public function get subSceneIndex():int					{ return superSceneChangeBehavior.subSceneIndex; }
-		public function set subSceneIndex(value:int):void		{ superSceneChangeBehavior.subSceneIndex = value; }
-		public function get subSceneIndices():Array				{ return superSceneChangeBehavior.subSceneIndices; }
-		public function set subSceneIndices(value:Array):void	{ superSceneChangeBehavior.subSceneIndices = value; }
-		public function get languageIndex():int 				{ return superSceneChangeBehavior.languageIndex; }
-		public function set languageIndex(value:int):void 		{ superSceneChangeBehavior.languageIndex = value; }
-		public function get ignoreShowHide():Boolean 			{ return superSceneChangeBehavior.active; }
-		public function set ignoreShowHide(value:Boolean):void 	{ superSceneChangeBehavior.active = value; }
+		private var _sceneIndex:int = -1;
+		private var _sceneIndices:Array = new Array();
+		private var _subSceneIndex:int = -1;
+		private var _subSceneIndices:Array = new Array();
+		private var _languageIndex:int = -1;
+		private var _ignoreShowHide:Boolean = true;
+		
+		public function get sceneIndex():int					{ return _sceneIndex; }
+		public function set sceneIndex(value:int):void {
+			_sceneIndex = value;
+			if (superSceneChangeBehavior) superSceneChangeBehavior.sceneIndex = value;
+		}
+		
+		public function get sceneIndices():Array				{ return _sceneIndices; }
+		public function set sceneIndices(value:Array):void {
+			_sceneIndices = value; 
+			if (superSceneChangeBehavior) superSceneChangeBehavior.sceneIndices = value;
+		}
+		
+		public function get subSceneIndex():int					{ return _subSceneIndex; }
+		public function set subSceneIndex(value:int):void {
+			_subSceneIndex = value;
+			if (superSceneChangeBehavior) superSceneChangeBehavior.subSceneIndex = value;
+		}
+		
+		public function get subSceneIndices():Array				{ return _subSceneIndices; }
+		public function set subSceneIndices(value:Array):void {
+			_subSceneIndices = value;
+			if (superSceneChangeBehavior) superSceneChangeBehavior.subSceneIndices = value;
+		}
+		
+		public function get languageIndex():int 				{ return _languageIndex; }
+		public function set languageIndex(value:int):void {
+			_languageIndex = value;
+			if (superSceneChangeBehavior) superSceneChangeBehavior.languageIndex = value;
+		}
+		
+		public function get ignoreShowHide():Boolean 			{ return _ignoreShowHide; }
+		public function set ignoreShowHide(value:Boolean):void {
+			_ignoreShowHide = value;
+			if (superSceneChangeBehavior) superSceneChangeBehavior.active = value;
+		}
 		
 		public function get screenScale():Number { return scaleContainer.scaleX; }
 		public function set screenScale(value:Number):void { scaleContainer.scaleX = scaleContainer.scaleY = scaleContainer.scaleZ = value; }
@@ -140,13 +170,16 @@ package blaze.away3d
 		public function set instanceIndex(value:int):void 
 		{
 			_instanceIndex = value;
+			superSceneChangeBehavior = new SuperSceneChangeBehavior(Show, Hide, instanceIndex);
+			superSceneChangeBehavior.sceneIndex = _sceneIndex;
+			
 			renderModel = Blaze.instance(instanceIndex).renderer;
 			viewPort = Blaze.instance(instanceIndex).viewPort;
 			sceneModel = Blaze.instance(instanceIndex).sceneModel;
 			language = Blaze.instance(instanceIndex).language;
 			tick = Blaze.instance(instanceIndex).tick;
 			
-			superSceneChangeBehavior = new SuperSceneChangeBehavior(Show, Hide, instanceIndex);
+			
 		}
 		
 		protected function addResizeListener():void
