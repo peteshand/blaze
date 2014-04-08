@@ -162,6 +162,10 @@ package blaze.starling
 		
 	}
 }
+import blaze.model.language.LanguageModel;
+import blaze.model.render.RenderModel;
+import blaze.model.scene.SceneModel;
+import blaze.model.tick.Tick;
 import blaze.model.viewPort.ViewPort;
 import flash.geom.Point;
 import starling.display.DisplayObject;
@@ -172,7 +176,12 @@ class LocationSprite extends BlazeStarlingSprite
 {
 	private var location:Point;
 	public var scaleToScreen:Boolean;
-	private var viewPort:ViewPort;
+	
+	protected var renderModel:RenderModel;
+	protected var viewPort:ViewPort;
+	protected var sceneModel:SceneModel;
+	protected var language:LanguageModel;
+	protected var tick:Tick;
 	
 	public function LocationSprite(child:DisplayObject, _location:Point, _scaleToScreen:Boolean=false) 
 	{
@@ -180,7 +189,11 @@ class LocationSprite extends BlazeStarlingSprite
 		location = _location;
 		scaleToScreen = _scaleToScreen;
 		
+		renderModel = Blaze.instance().renderer;
 		viewPort = Blaze.instance().viewPort;
+		sceneModel = Blaze.instance().sceneModel;
+		language = Blaze.instance().language;
+		tick = Blaze.instance().tick;
 		
 		addEventListener(Event.ADDED_TO_STAGE, OnAdd);
 	}
@@ -198,7 +211,6 @@ class LocationSprite extends BlazeStarlingSprite
 		this.y = Math.round(viewPort.rect.height * location.y);
 		
 		if (scaleToScreen) {
-			trace("viewPort.scaleMin = " + viewPort.scaleMin);
 			this.scaleX = this.scaleY = viewPort.scaleMin;
 		}
 	}

@@ -6,7 +6,10 @@ package blaze.away3d
 	import blaze.behaviors.ResizeBehavior;
 	import blaze.behaviors.SuperSceneChangeBehavior;
 	import blaze.behaviors.TweenBehavior;
+	import blaze.model.language.LanguageModel;
 	import blaze.model.render.RenderModel;
+	import blaze.model.scene.SceneModel;
+	import blaze.model.tick.Tick;
 	import blaze.model.viewPort.ViewPort;
 	import blaze.utils.layout.Alignment;
 	import flash.display.Stage;
@@ -28,8 +31,12 @@ package blaze.away3d
 		//protected var awayTouchBehavior:AwayTouchBehavior;
 		//protected var displaylistTouchBehavior:DisplayListTouchBehavior;
 		public var tweenBehavior:TweenBehavior;
+		
 		protected var renderModel:RenderModel;
 		protected var viewPort:ViewPort;
+		protected var sceneModel:SceneModel;
+		protected var language:LanguageModel;
+		protected var tick:Tick;
 		
 		public var locationContainers:Vector.<LocationContainer3D> = new Vector.<LocationContainer3D>();
 		
@@ -134,7 +141,11 @@ package blaze.away3d
 		{
 			_instanceIndex = value;
 			renderModel = Blaze.instance(instanceIndex).renderer;
-			viewPort = Blaze.instance(instanceIndex).viewPort;	
+			viewPort = Blaze.instance(instanceIndex).viewPort;
+			sceneModel = Blaze.instance(instanceIndex).sceneModel;
+			language = Blaze.instance(instanceIndex).language;
+			tick = Blaze.instance(instanceIndex).tick;
+			
 			superSceneChangeBehavior = new SuperSceneChangeBehavior(Show, Hide, instanceIndex);
 		}
 		
