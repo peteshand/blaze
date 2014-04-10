@@ -28,7 +28,6 @@ package blaze.model.viewPort
 		private var screenRatio:Number;
 		
 		public var rect:Rectangle;
-		//private var dimensions:Dimensions;
 		public var update:Signal = new Signal();
 		
 		public var _optimalScreenDimensions:Point = new Point();
@@ -70,7 +69,7 @@ package blaze.model.viewPort
 			if (optimalScreenFraction.x != -1) viewWidth = stage.stageWidth * optimalScreenFraction.x;
 			if (optimalScreenFraction.y != -1) viewHeight = stage.stageHeight * optimalScreenFraction.y;
 			
-			rect = Dimensions.calculate(stage.stageWidth / renderer.proxySlotsUsed, stage.stageHeight, viewWidth, viewHeight, zoomType);
+			rect = Dimensions.calculate(stage.stageWidth / renderer.proxySlotsUsed, stage.stageHeight, viewWidth, viewHeight, zoomType).clone();
 			screenRatio = Dimensions.objectRatio;
 			displayRatio = Dimensions.displayRatio;
 			

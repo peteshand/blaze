@@ -100,13 +100,15 @@ package
 		static public function addView3D(View3DClass:Class, id:String, renderIndex:int = -1, instanceIndex:int = 0):View3D
 		{
 			var view3D:View3D = instance(instanceIndex).renderer.addView3D(View3DClass, id, renderIndex);
-			awayCollectionData.push([view3D, id]);
+			awayCollectionData.push([view3D, id, instanceIndex]);
 			return view3D;
 		}
 		
 		/** Initialize away3d linked mediators */
 		static public function set contextView(view:DisplayObjectContainer):void 
 		{
+			trace("awayCollectionData.length = " + awayCollectionData.length);
+			trace(view);
 			for (var i:int = 0; i < awayCollectionData.length; i++) view.addChild(awayCollectionData[i][0]);
 		}
 		
@@ -114,7 +116,7 @@ package
 		static public function addStarling(StarlingLayerClass:Class, id:String, renderIndex:int = -1, instanceIndex:int = 0):Starling
 		{
 			var starling:Starling = instance(instanceIndex).renderer.addStarling(StarlingLayerClass, id, renderIndex);
-			starlingCollectionData.push([starling, id]);
+			starlingCollectionData.push([starling, id, instanceIndex]);
 			return starling;
 		}
 	}

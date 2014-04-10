@@ -20,7 +20,7 @@ package blaze.behaviors
 		
 		public function TweenBehavior(target:Object, OnHideComplete:Function=null, OnShowComplete:Function=null, OnTweenHideStart:Function=null, OnTweenShowStart:Function=null) 
 		{
-			tweenVO.target = this;
+			tweenVO.target = target;
 			this.OnHideComplete = OnHideComplete;
 			this.OnShowComplete = OnShowComplete;
 			this.OnTweenHideStart = OnTweenHideStart;

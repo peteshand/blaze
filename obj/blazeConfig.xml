@@ -8,15 +8,15 @@
   <compiler>
     <define append="true">
       <name>CONFIG::debug</name>
-      <value>true</value>
-    </define>
-    <define append="true">
-      <name>CONFIG::release</name>
       <value>false</value>
     </define>
     <define append="true">
+      <name>CONFIG::release</name>
+      <value>true</value>
+    </define>
+    <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'28/03/2014'</value>
+      <value>'9/04/2014'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -30,18 +30,20 @@
       <name>CONFIG::desktop</name>
       <value>true</value>
     </define>
-    <verbose-stacktraces>true</verbose-stacktraces>
+    <optimize>true</optimize>
+    <omit-trace-statements>true</omit-trace-statements>
+    <verbose-stacktraces>false</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Users\pjshand\Desktop\Work\CBA\blaze\src</path-element>
-      <path-element>C:\Users\pjshand\Desktop\Work\CBA\blaze\lib</path-element>
+      <path-element>C:\_projects\CBA\blaze\src</path-element>
+      <path-element>C:\_projects\CBA\blaze\lib</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <external-library-path append="true">
-      <path-element>C:\Users\pjshand\Desktop\Work\CBA\blaze\lib\starling.swc</path-element>
-      <path-element>C:\Users\pjshand\Desktop\Work\CBA\blaze\lib\away3d-core-fp11_4_1_6.swc</path-element>
-      <path-element>C:\Users\pjshand\Desktop\Work\CBA\blaze\lib\as3-signals-v0.9-BETA.swc</path-element>
-      <path-element>C:\Users\pjshand\Desktop\Work\CBA\blaze\lib\greensock.swc</path-element>
-      <path-element>C:\Users\pjshand\Desktop\Work\CBA\blaze\lib\airglobal.swc</path-element>
+      <path-element>C:\_projects\CBA\blaze\lib\starling.swc</path-element>
+      <path-element>C:\_projects\CBA\blaze\lib\away3d-core-fp11_4_1_6.swc</path-element>
+      <path-element>C:\_projects\CBA\blaze\lib\as3-signals-v0.9-BETA.swc</path-element>
+      <path-element>C:\_projects\CBA\blaze\lib\greensock.swc</path-element>
+      <path-element>C:\_projects\CBA\blaze\lib\airglobal.swc</path-element>
     </external-library-path>
   </compiler>
   <file-specs />

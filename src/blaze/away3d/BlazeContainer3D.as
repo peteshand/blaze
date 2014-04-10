@@ -172,14 +172,17 @@ package blaze.away3d
 			_instanceIndex = value;
 			superSceneChangeBehavior = new SuperSceneChangeBehavior(Show, Hide, instanceIndex);
 			superSceneChangeBehavior.sceneIndex = _sceneIndex;
+			superSceneChangeBehavior.sceneIndices = _sceneIndices;
+			superSceneChangeBehavior.subSceneIndex = _subSceneIndex;
+			superSceneChangeBehavior.subSceneIndices = _subSceneIndices;
+			superSceneChangeBehavior.languageIndex = _languageIndex;
+			superSceneChangeBehavior.active = _ignoreShowHide;
 			
 			renderModel = Blaze.instance(instanceIndex).renderer;
 			viewPort = Blaze.instance(instanceIndex).viewPort;
 			sceneModel = Blaze.instance(instanceIndex).sceneModel;
 			language = Blaze.instance(instanceIndex).language;
 			tick = Blaze.instance(instanceIndex).tick;
-			
-			
 		}
 		
 		protected function addResizeListener():void

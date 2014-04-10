@@ -3,6 +3,11 @@ package blaze.starling
 	import blaze.behaviors.ResizeBehavior;
 	import blaze.behaviors.SuperSceneChangeBehavior;
 	import blaze.behaviors.TweenBehavior;
+	import blaze.model.language.LanguageModel;
+	import blaze.model.render.RenderModel;
+	import blaze.model.scene.SceneModel;
+	import blaze.model.tick.Tick;
+	import blaze.model.viewPort.ViewPort;
 	import blaze.utils.layout.Alignment;
 	import org.osflash.signals.Signal;
 	import starling.display.DisplayObject;
@@ -21,6 +26,12 @@ package blaze.starling
 		public var tweenBehavior:TweenBehavior;
 		private var resizeBehavior:ResizeBehavior = new ResizeBehavior();
 		
+		protected var renderModel:RenderModel;
+		protected var viewPort:ViewPort;
+		protected var sceneModel:SceneModel;
+		protected var language:LanguageModel;
+		protected var tick:Tick;
+		
 		//protected var touchObject:DisplayObject;
 		//private var starlingTouchBehavior:StarlingTouchBehavior;
 		private var locationContainers:Vector.<LocationSprite> = new Vector.<LocationSprite>();
@@ -28,7 +39,7 @@ package blaze.starling
 		private var _showing:Boolean = true;
 		public var onAddToStage:Signal = new Signal();
 		public var visibilityChange:Signal = new Signal();
-		private var _instanceIndex:int;
+		private var _instanceIndex:int = 0;
 		
 		public function BlazeStarlingSprite() 
 		{
@@ -130,9 +141,20 @@ package blaze.starling
 		
 		public function set instanceIndex(value:int):void 
 		{
-			trace("instanceIndex = " + instanceIndex);
 			_instanceIndex = value;
 			superSceneChangeBehavior = new SuperSceneChangeBehavior(Show, Hide, instanceIndex);
+			superSceneChangeBehavior.sceneIndex = _sceneIndex;
+			superSceneChangeBehavior.sceneIndices = _sceneIndices;
+			superSceneChangeBehavior.subSceneIndex = _subSceneIndex;
+			superSceneChangeBehavior.subSceneIndices = _subSceneIndices;
+			superSceneChangeBehavior.languageIndex = _languageIndex;
+			superSceneChangeBehavior.active = _ignoreShowHide;
+			
+			renderModel = Blaze.instance(instanceIndex).renderer;
+			viewPort = Blaze.instance(instanceIndex).viewPort;
+			sceneModel = Blaze.instance(instanceIndex).sceneModel;
+			language = Blaze.instance(instanceIndex).language;
+			tick = Blaze.instance(instanceIndex).tick;
 		}
 		
 		
@@ -170,7 +192,7 @@ package blaze.starling
 		
 		public function addChildAtPoint(child:DisplayObject, location:Point, scaleToScreen:Boolean=false):DisplayObject
 		{
-			var locationSprite:LocationSprite = new LocationSprite(child, location, scaleToScreen);
+			var locationSprite:LocationSprite = new LocationSprite(child, location, instanceIndex, scaleToScreen);
 			addChild(locationSprite);
 			locationContainers.push(locationSprite);
 			addResizeListener();
@@ -187,6 +209,7 @@ package blaze.starling
 		
 	}
 }
+import blaze.behaviors.ResizeBehavior;
 import blaze.model.language.LanguageModel;
 import blaze.model.render.RenderModel;
 import blaze.model.scene.SceneModel;
@@ -194,49 +217,49 @@ import blaze.model.tick.Tick;
 import blaze.model.viewPort.ViewPort;
 import flash.geom.Point;
 import starling.display.DisplayObject;
+import starling.display.Sprite;
 import starling.events.Event;
 import blaze.starling.BlazeStarlingSprite;
 
-class LocationSprite extends BlazeStarlingSprite 
+class LocationSprite extends Sprite 
 {
 	private var location:Point;
 	public var scaleToScreen:Boolean;
 	
-	protected var renderModel:RenderModel;
+	private var instanceIndex:int;
 	protected var viewPort:ViewPort;
-	protected var sceneModel:SceneModel;
-	protected var language:LanguageModel;
-	protected var tick:Tick;
+	private var resizeBehavior:ResizeBehavior;
 	
-	public function LocationSprite(child:DisplayObject, _location:Point, _scaleToScreen:Boolean=false) 
+	public function LocationSprite(child:DisplayObject, _location:Point, instanceIndex:int, _scaleToScreen:Boolean=false) 
 	{
 		addChild(child);
 		location = _location;
 		scaleToScreen = _scaleToScreen;
 		
-		renderModel = Blaze.instance().renderer;
-		viewPort = Blaze.instance().viewPort;
-		sceneModel = Blaze.instance().sceneModel;
-		language = Blaze.instance().language;
-		tick = Blaze.instance().tick;
+		this.instanceIndex = instanceIndex;
 		
+		viewPort = Blaze.instance(instanceIndex).viewPort;
+		
+		resizeBehavior = new ResizeBehavior();
 		addEventListener(Event.ADDED_TO_STAGE, OnAdd);
 	}
 	
-	override protected function OnAdd(e:Event):void 
+	protected function OnAdd(e:Event):void 
 	{
 		removeEventListener(Event.ADDED_TO_STAGE, OnAdd);
-		addResizeListener();
+		resizeBehavior.addResizeListener(Blaze.stage, OnResize);
 		OnResize();
 	}
 	
-	override protected function OnResize():void
+	protected function OnResize():void
 	{
+		this.unflatten();
 		this.x = Math.round(viewPort.rect.width * location.x);
 		this.y = Math.round(viewPort.rect.height * location.y);
 		
 		if (scaleToScreen) {
 			this.scaleX = this.scaleY = viewPort.scaleMin;
 		}
+		this.flatten();
 	}
 }

@@ -196,17 +196,21 @@ package blaze.model.render
 			//Blaze.instance(instanceIndex).tick.update.remove(render);
 		}
 		
+		public var awayCollectionData:Array = new Array();
 		public function addView3D(View3DClass:Class, id:String, renderIndex:int = -1):View3D
 		{
 			var view3D:View3D = new View3DClass(instanceIndex);
 			stage.addChild(view3D);
 			this.addUpdaterAt(view3D.render, renderIndex);
+			awayCollectionData.push([view3D, id, instanceIndex]);
 			return view3D;
 		}
 		
+		public var starlingCollectionData:Array = new Array();
 		public function addStarling(StarlingLayerClass:Class, id:String, renderIndex:int = -1):Starling
 		{
 			var starling:Starling = new View2DInitializer().init(this, stage, StarlingLayerClass, addUpdaterAt, renderIndex, instanceIndex);
+			starlingCollectionData.push([starling, id, instanceIndex]);
 			return starling;
 		}
 		
@@ -268,7 +272,6 @@ class View2DInitializer
 	
 	public function onStarlingReady(e:Event):void
 	{
-		trace("onStarlingReady");
 		var layer:StarlingLayer = starling.root as StarlingLayer;
 		layer.setStarling(starling, instanceIndex);
 		renderModel.replaceUpdater(tempRenderFunc, layer.update);
