@@ -4,6 +4,7 @@ package blaze.model.viewPort
 	import blaze.model.render.RenderModel;
 	import blaze.utils.layout.Alignment;
 	import blaze.utils.layout.Dimensions;
+	import cebit.model.blaze.viewport.ViewportPoint;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.geom.Point;
@@ -31,13 +32,13 @@ package blaze.model.viewPort
 		public var update:Signal = new Signal();
 		
 		public var _optimalScreenDimensions:Point = new Point();
-		public var optimalScreenFraction:Point = new Point( -1, -1);
+		public var optimalScreenFraction:ViewportPoint = new ViewportPoint( -1, -1);
 		public var offsetFraction:Point = new Point(-1,-1);
 		public var alignment:String = Alignment.MIDDLE;
 		
 		public function ViewPort():void
 		{
-			
+			optimalScreenFraction.updateCallback = OnResize;
 		}
 		
 		public function init(stage:Stage, renderer:RenderModel):void 
@@ -69,7 +70,10 @@ package blaze.model.viewPort
 			if (optimalScreenFraction.x != -1) viewWidth = stage.stageWidth * optimalScreenFraction.x;
 			if (optimalScreenFraction.y != -1) viewHeight = stage.stageHeight * optimalScreenFraction.y;
 			
-			rect = Dimensions.calculate(stage.stageWidth / renderer.proxySlotsUsed, stage.stageHeight, viewWidth, viewHeight, zoomType).clone();
+			rect.width = Math.round(viewWidth)
+			rect.height = viewHeight;
+			//= Dimensions.calculate(/*stage.stageWidth / renderer.proxySlotsUsed*/viewWidth, stage.stageHeight, viewWidth, viewHeight, zoomType).clone();
+//			rect.width = 300
 			screenRatio = Dimensions.objectRatio;
 			displayRatio = Dimensions.displayRatio;
 			
@@ -78,7 +82,11 @@ package blaze.model.viewPort
 			}
 			else if (alignment == Alignment.RIGHT || alignment == Alignment.TOP_RIGHT || alignment == Alignment.BOTTOM_RIGHT) {
 				rect.x = stage.stageWidth - rect.width;
+			}			
+			else if (alignment == Alignment.MIDDLE) {
+				rect.x = Math.round((stage.stageWidth - rect.width)/2);
 			}
+	
 			
 			if (alignment == Alignment.TOP || alignment == Alignment.TOP_LEFT || alignment == Alignment.TOP_RIGHT) {
 				rect.y = 0;
@@ -132,5 +140,6 @@ package blaze.model.viewPort
 				return scaleHorizontal;
 			}
 		}
+		
 	}
 }
