@@ -102,7 +102,7 @@ package blaze.starling.layers
 			return _starling;
 		}
 		
-		private function OnViewPortUpdate():void 
+		protected function OnViewPortUpdate():void 
 		{
 			_starling.stage.stageWidth = viewPort.rect.width;
 			_starling.stage.stageHeight = viewPort.rect.height;
