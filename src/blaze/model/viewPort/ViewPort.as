@@ -4,7 +4,6 @@ package blaze.model.viewPort
 	import blaze.model.render.RenderModel;
 	import blaze.utils.layout.Alignment;
 	import blaze.utils.layout.Dimensions;
-	import cebit.model.blaze.viewport.ViewportPoint;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.geom.Point;
@@ -73,7 +72,6 @@ package blaze.model.viewPort
 			rect.width = Math.round(viewWidth)
 			rect.height = viewHeight;
 			//= Dimensions.calculate(/*stage.stageWidth / renderer.proxySlotsUsed*/viewWidth, stage.stageHeight, viewWidth, viewHeight, zoomType).clone();
-//			rect.width = 300
 			screenRatio = Dimensions.objectRatio;
 			displayRatio = Dimensions.displayRatio;
 			
