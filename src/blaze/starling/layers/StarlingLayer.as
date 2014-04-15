@@ -67,7 +67,10 @@ package blaze.starling.layers
 		
 		private function addInstanceIndex(child:DisplayObject):void
 		{
-			if (child is BlazeStarlingSprite) BlazeStarlingSprite(child).instanceIndex = this.instanceIndex;
+			if (child is BlazeStarlingSprite) {
+				BlazeStarlingSprite(child).instanceIndex = this.instanceIndex;
+				if (_starling) BlazeStarlingSprite(child).starling = this._starling;
+			}
 		}
 		
 		protected function OnAdd(e:Event):void 
@@ -95,6 +98,11 @@ package blaze.starling.layers
 		public function set starling(value:Starling):void 
 		{
 			_starling = value;
+			for (var i:int = 0; i < this.numChildren; i++) 
+			{
+				var child:DisplayObject = this.getChildAt(i);
+				if (child is BlazeStarlingSprite) BlazeStarlingSprite(child).starling = value;
+			}
 		}
 		
 		public function get starling():Starling 
