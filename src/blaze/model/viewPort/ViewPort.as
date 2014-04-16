@@ -66,12 +66,13 @@ package blaze.model.viewPort
 		
 		private function OnResize():void 
 		{
-			if (optimalScreenFraction.x != -1) viewWidth = stage.stageWidth * optimalScreenFraction.x;
-			if (optimalScreenFraction.y != -1) viewHeight = stage.stageHeight * optimalScreenFraction.y;
+			if (optimalScreenFraction.x != -1) viewWidth = Math.round(stage.stageWidth * optimalScreenFraction.x);
+			if (optimalScreenFraction.y != -1) viewHeight = Math.round(stage.stageHeight * optimalScreenFraction.y);
 			
 			rect.width = Math.round(viewWidth)
 			rect.height = viewHeight;
 			//= Dimensions.calculate(/*stage.stageWidth / renderer.proxySlotsUsed*/viewWidth, stage.stageHeight, viewWidth, viewHeight, zoomType).clone();
+			//rect.width = 300
 			screenRatio = Dimensions.objectRatio;
 			displayRatio = Dimensions.displayRatio;
 			
@@ -93,8 +94,8 @@ package blaze.model.viewPort
 				rect.y = stage.stageHeight - rect.height;
 			}
 			
-			if (offsetFraction.x != -1) rect.x += offsetFraction.x * stage.stageWidth;
-			if (offsetFraction.y != -1) rect.y += offsetFraction.y * stage.stageHeight;
+			if (offsetFraction.x != -1) rect.x += Math.round(offsetFraction.x * stage.stageWidth);
+			if (offsetFraction.y != -1) rect.y += Math.round(offsetFraction.y * stage.stageHeight);
 			
 			update.dispatch();
 		}
