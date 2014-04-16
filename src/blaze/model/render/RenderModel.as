@@ -53,6 +53,7 @@ package blaze.model.render
 		private var _stage3DVisible		:Boolean = true;
 		public var VisibilityChange		:Signal = new Signal();
 		private var stage:Stage;
+		public var active:Boolean = true;
 		
 		public function RenderModel(instanceIndex:int):void
 		{
@@ -89,8 +90,10 @@ package blaze.model.render
 		
 		private function update():void
 		{
-			for each(var updater:Function in updateHandlers) {
-				updater();
+			if (active){
+				for each(var updater:Function in updateHandlers) {
+					updater();
+				}
 			}
 		}
 		
@@ -187,13 +190,11 @@ package blaze.model.render
 		public function start():void
 		{
 			Renderers.start();
-			//Blaze.instance(instanceIndex).tick.update.add(render);
 		}
 		
 		public function stop():void
 		{
 			Renderers.stop();
-			//Blaze.instance(instanceIndex).tick.update.remove(render);
 		}
 		
 		public var awayCollectionData:Array = new Array();

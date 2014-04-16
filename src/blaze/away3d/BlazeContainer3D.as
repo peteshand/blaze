@@ -52,6 +52,8 @@ package blaze.away3d
 		public var scaleToScreen:Boolean = false;
 		
 		private var _instanceIndex:int = 0;
+		protected var instanceIndexSet:Signal = new Signal();
+		
 		protected var scaleContainer:ObjectContainer3D;
 		
 		protected var _alpha:Number = 1;
@@ -188,6 +190,7 @@ package blaze.away3d
 			{
 				locationContainers[i].instanceIndex = instanceIndex;
 			}
+			instanceIndexSet.dispatch();
 		}
 		
 		protected function addResizeListener():void
