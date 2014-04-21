@@ -10,6 +10,7 @@ package blaze.starling
 	import blaze.model.viewPort.ViewPort;
 	import blaze.utils.layout.Alignment;
 	import org.osflash.signals.Signal;
+	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -39,12 +40,13 @@ package blaze.starling
 		private var _showing:Boolean = true;
 		public var onAddToStage:Signal = new Signal();
 		public var visibilityChange:Signal = new Signal();
+		
+		public var starling:Starling;
 		private var _instanceIndex:int = 0;
 		
 		public function BlazeStarlingSprite() 
 		{
 			super();
-			
 			this.addEventListener(Event.ADDED_TO_STAGE, OnAdd);
 			tweenBehavior = new TweenBehavior(this, OnHideComplete, OnShowComplete, OnTweenHideStart, OnTweenShowStart);
 		}
@@ -101,6 +103,7 @@ package blaze.starling
 		public function get sceneIndex():int					{ return _sceneIndex; }
 		public function set sceneIndex(value:int):void {
 			_sceneIndex = value;
+			trace("superSceneChangeBehavior = " + superSceneChangeBehavior);
 			if (superSceneChangeBehavior) superSceneChangeBehavior.sceneIndex = value;
 		}
 		
@@ -142,6 +145,7 @@ package blaze.starling
 		public function set instanceIndex(value:int):void 
 		{
 			_instanceIndex = value;
+			
 			superSceneChangeBehavior = new SuperSceneChangeBehavior(Show, Hide, instanceIndex);
 			superSceneChangeBehavior.sceneIndex = _sceneIndex;
 			superSceneChangeBehavior.sceneIndices = _sceneIndices;
@@ -207,6 +211,25 @@ package blaze.starling
 			if (child.parent) child.parent.removeChild(child);
 		}
 		
+		override public function addChild(child:DisplayObject):starling.display.DisplayObject
+		{
+			addInstanceIndex(child);
+			return super.addChild(child);
+		}
+		
+		override public function addChildAt(child:DisplayObject, index:int):starling.display.DisplayObject
+		{
+			addInstanceIndex(child);
+			return super.addChildAt(child, index);
+		}
+		
+		private function addInstanceIndex(child:DisplayObject):void
+		{
+			if (child is BlazeStarlingSprite) {
+				BlazeStarlingSprite(child).instanceIndex = this.instanceIndex;
+				BlazeStarlingSprite(child).starling = this.starling;
+			}
+		}
 	}
 }
 import blaze.behaviors.ResizeBehavior;

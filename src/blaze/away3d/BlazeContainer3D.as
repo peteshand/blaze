@@ -52,6 +52,8 @@ package blaze.away3d
 		public var scaleToScreen:Boolean = false;
 		
 		private var _instanceIndex:int = 0;
+		protected var instanceIndexSet:Signal = new Signal();
+		
 		protected var scaleContainer:ObjectContainer3D;
 		
 		protected var _alpha:Number = 1;
@@ -183,6 +185,12 @@ package blaze.away3d
 			sceneModel = Blaze.instance(instanceIndex).sceneModel;
 			language = Blaze.instance(instanceIndex).language;
 			tick = Blaze.instance(instanceIndex).tick;
+			
+			for (var i:int = 0; i < locationContainers.length; i++) 
+			{
+				locationContainers[i].instanceIndex = instanceIndex;
+			}
+			instanceIndexSet.dispatch();
 		}
 		
 		protected function addResizeListener():void
@@ -257,7 +265,7 @@ package blaze.away3d
 		
 		override public function addChild(child:ObjectContainer3D):ObjectContainer3D
 		{
-			
+			applyInstanceIndex(child);
 			return scaleContainer.addChild(child);
 		}
 		
@@ -277,11 +285,17 @@ package blaze.away3d
 		
 		public function addChildAtPoint(child:ObjectContainer3D, location:Point):ObjectContainer3D
 		{
+			applyInstanceIndex(child);
 			var locationContainer3D:LocationContainer3D = new LocationContainer3D(child, location, instanceIndex);
 			addChild(locationContainer3D);
 			locationContainers.push(locationContainer3D);
 			addResizeListener();
 			return locationContainer3D.child;
+		}
+		
+		public function applyInstanceIndex(child:ObjectContainer3D):void
+		{
+			if (child is BlazeContainer3D) BlazeContainer3D(child).instanceIndex = instanceIndex;
 		}
 	}
 }
@@ -297,22 +311,15 @@ class LocationContainer3D extends ObjectContainer3D
 	private var location:Point;
 	public var child:ObjectContainer3D
 	private var viewPort:ViewPort;
-	private var instanceIndex:int;
+	private var _instanceIndex:int;
 	
 	public function LocationContainer3D(_child:ObjectContainer3D, _location:Point, instanceIndex:int) 
 	{
-		this.instanceIndex = instanceIndex;
-		
 		child = _child;
 		addChild(child);
 		location = _location;
 		
-		//OnStageResize();
-		viewPort = Blaze.instance(instanceIndex).viewPort;
-		viewPort.update.add(OnViewPortUpdate);
-		
-		OnViewPortUpdate();
-		//Blaze.stage.addEventListener(Event.RESIZE, OnStageResize);
+		this.instanceIndex = instanceIndex;
 	}
 	
 	private function OnViewPortUpdate():void 
@@ -321,9 +328,17 @@ class LocationContainer3D extends ObjectContainer3D
 		this.y = viewPort.rect.height * -(location.y - 0.5);
 	}
 	
-	/*private function OnStageResize(event:Event=null):void
+	public function get instanceIndex():int 
 	{
-		this.x = Blaze.instance(instanceIndex).stage.stageWidth * (location.x - 0.5);
-		this.y = Blaze.instance(instanceIndex).stage.stageHeight * -(location.y - 0.5);
-	}*/
+		return _instanceIndex;
+	}
+	
+	public function set instanceIndex(value:int):void 
+	{
+		_instanceIndex = value;
+		if (viewPort) viewPort.update.remove(OnViewPortUpdate);
+		viewPort = Blaze.instance(instanceIndex).viewPort;
+		viewPort.update.add(OnViewPortUpdate);
+		OnViewPortUpdate();
+	}
 }
