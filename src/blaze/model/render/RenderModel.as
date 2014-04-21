@@ -18,27 +18,6 @@ package blaze.model.render
 	 */
 	public class RenderModel
 	{
-		/*protected static var _allowInstantiate:Boolean;
-		protected static var _instance:RenderModel;
-		
-		public function RenderModel()
-		{
-			if (!_allowInstantiate)
-			{
-				throw new Error("RenderModel can only be accessed through RenderModel.getInstance()");
-			}
-		}
-		
-		public static function getInstance():RenderModel
-		{
-			if (!_instance) {
-				_allowInstantiate = true;
-				_instance = new RenderModel();
-				_allowInstantiate = false;
-			}
-			return _instance;
-		}*/
-		
 		public var instanceIndex:int;
 		private var _proxySlotsUsed:int;
 		
@@ -65,7 +44,8 @@ package blaze.model.render
 			
 			stage3DManager = Stage3DManager.getInstance(stage);
 			//stage3DProxy = stage3DManager.getStage3DProxy(instanceIndex, false, Context3DProfile.BASELINE_EXTENDED);
-			stage3DProxy = stage3DManager.getFreeStage3DProxy(false, Context3DProfile.BASELINE_EXTENDED);
+			//stage3DProxy = stage3DManager.getFreeStage3DProxy(false, Context3DProfile.BASELINE_EXTENDED);
+			stage3DProxy = stage3DManager.getFreeStage3DProxy(false, Context3DProfile.BASELINE);
 			stage3DProxy.enableDepthAndStencil = true;
 			
 			stage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_CREATED, onContextCreated);
