@@ -107,7 +107,7 @@ package blaze.away3d
 		protected function OnTweenShowStart():void { }
 		protected function OnTweenHideStart():void { }
 		protected function OnShowComplete():void { }
-		protected function OnHideComplete():void { this.visible = false; }
+		protected function OnHideComplete():void { this.visible = tweenBehavior.visOnHide; }
 		
 		public function get width():Number { return _width };
 		public function get height():Number { return _height };

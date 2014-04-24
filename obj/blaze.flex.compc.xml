@@ -49,10 +49,12 @@
     <class>blaze.model.scene.SceneModel</class>
     <class>blaze.model.tick.Tick</class>
     <class>blaze.model.viewPort.ViewPort</class>
+    <class>blaze.model.viewPort.ViewportPoint</class>
     <class>blaze.starling.BlazeStarlingSprite</class>
     <class>blaze.starling.layers.IStarlingLayer</class>
     <class>blaze.starling.layers.StarlingLayer</class>
     <class>blaze.starling.utils.ImageLoader</class>
+    <class>blaze.utils.Math2</class>
     <class>blaze.utils.Range</class>
     <class>blaze.utils.StringUtils</class>
     <class>blaze.utils.layout.Alignment</class>
