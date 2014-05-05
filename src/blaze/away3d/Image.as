@@ -1,8 +1,11 @@
 package blaze.away3d 
 {
+	import away3d.animators.IAnimator;
+	import away3d.animators.SpriteSheetAnimator;
 	import away3d.entities.Mesh;
 	import away3d.materials.ColorMaterial;
 	import away3d.materials.MaterialBase;
+	import away3d.materials.methods.EffectMethodBase;
 	import away3d.materials.TextureMaterial;
 	import away3d.primitives.PlaneGeometry;
 	import away3d.textures.BitmapTexture;
@@ -150,6 +153,16 @@ package blaze.away3d
 			geo.doubleSided = value;
 		}
 		
+		public function get animator():IAnimator 
+		{
+			return mesh.animator;
+		}
+		
+		public function set animator(value:IAnimator):void 
+		{
+			mesh.animator = value;
+		}
+		
 		override public function dispose():void
 		{
 			removeChild(mesh);
@@ -171,6 +184,20 @@ package blaze.away3d
 			var image:Image = Image.fromColor(0x000000, 0.5);
 			ImageLoader.loadImage(image, url);
 			return image;
+		}
+		
+		static public function fromMaterial(material:TextureMaterial):Image 
+		{
+			var image:Image = new Image();
+			image.material = material;
+			return image;
+		}
+		
+		public function addMethod(method:EffectMethodBase):void
+		{
+			if (material is TextureMaterial){
+				TextureMaterial(material).addMethod(method);
+			}
 		}
 	}
 }

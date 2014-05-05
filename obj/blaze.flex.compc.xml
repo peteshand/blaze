@@ -21,10 +21,10 @@
     </source-path>
     <external-library-path append="true">
       <path-element>c:\_projects\cba\blaze\lib\starling.swc</path-element>
-      <path-element>c:\_projects\cba\blaze\lib\away3d-core-fp11_4_1_6.swc</path-element>
       <path-element>c:\_projects\cba\blaze\lib\as3-signals-v0.9-beta.swc</path-element>
       <path-element>c:\_projects\cba\blaze\lib\greensock.swc</path-element>
       <path-element>c:\_projects\cba\blaze\lib\airglobal.swc</path-element>
+      <path-element>c:\_projects\cba\blaze\lib\away3d-core-fp11_4_1_6.swc</path-element>
     </external-library-path>
   </compiler>
   <include-classes>
@@ -43,6 +43,12 @@
     <class>blaze.behaviors.SubSceneChangeBehavior</class>
     <class>blaze.behaviors.SuperSceneChangeBehavior</class>
     <class>blaze.behaviors.TweenBehavior</class>
+    <class>blaze.behaviors.touch.AwayTouchBehavior</class>
+    <class>blaze.behaviors.touch.BaseTouchBehavior</class>
+    <class>blaze.behaviors.touch.DisplayListTouchBehavior</class>
+    <class>blaze.behaviors.touch.StarlingTouchBehavior</class>
+    <class>blaze.behaviors.touch.Touch</class>
+    <class>blaze.behaviors.touch.TouchPhase</class>
     <class>blaze.model.language.LanguageModel</class>
     <class>blaze.model.render.Renderers</class>
     <class>blaze.model.render.RenderModel</class>
@@ -60,5 +66,6 @@
     <class>blaze.utils.layout.Alignment</class>
     <class>blaze.utils.layout.Dimensions</class>
     <class>blaze.utils.layout.Orientation</class>
+    <class>away3d.events.TouchEvent3D</class>
   </include-classes>
 </flex-config>

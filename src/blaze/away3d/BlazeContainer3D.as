@@ -2,9 +2,14 @@ package blaze.away3d
 {
 	import away3d.containers.ObjectContainer3D;
 	import away3d.containers.Scene3D;
+	import away3d.core.pick.IPickingCollider;
+	import away3d.entities.Entity;
 	import away3d.events.Scene3DEvent;
 	import blaze.behaviors.ResizeBehavior;
 	import blaze.behaviors.SuperSceneChangeBehavior;
+	import blaze.behaviors.touch.AwayTouchBehavior;
+	import blaze.behaviors.touch.DisplayListTouchBehavior;
+	import blaze.behaviors.touch.Touch;
 	import blaze.behaviors.TweenBehavior;
 	import blaze.model.language.LanguageModel;
 	import blaze.model.render.RenderModel;
@@ -12,6 +17,7 @@ package blaze.away3d
 	import blaze.model.tick.Tick;
 	import blaze.model.viewPort.ViewPort;
 	import blaze.utils.layout.Alignment;
+	import flash.display.DisplayObject;
 	import flash.display.Stage;
 	import flash.geom.Matrix3D;
 	import flash.geom.Point;
@@ -28,8 +34,8 @@ package blaze.away3d
 		// Controls Show/Hide on sceneIndex, subSceneIndex, subScenendices, and languageIndex change
 		private var superSceneChangeBehavior:SuperSceneChangeBehavior
 		private var resizeBehavior:ResizeBehavior
-		//protected var awayTouchBehavior:AwayTouchBehavior;
-		//protected var displaylistTouchBehavior:DisplayListTouchBehavior;
+		protected var awayTouchBehavior:AwayTouchBehavior;
+		protected var displaylistTouchBehavior:DisplayListTouchBehavior;
 		public var tweenBehavior:TweenBehavior;
 		
 		protected var renderModel:RenderModel;
@@ -163,6 +169,7 @@ package blaze.away3d
 		public function set screenScale(value:Number):void { scaleContainer.scaleX = scaleContainer.scaleY = scaleContainer.scaleZ = value; }
 		
 		public function get showing():Boolean { return _showing; }
+		public function set showing(value:Boolean):void { _showing = value; }
 		
 		public function get instanceIndex():int 
 		{
@@ -207,16 +214,19 @@ package blaze.away3d
 		
 		
 		
-		/*
+		
 		
 		public function attachTouchListenerTo(touchObject:*, iPickingCollider:IPickingCollider=null, _useStageForRelease:Boolean=false):void 
 		{
-			if (touchObject is Entity) {
-				if (!awayTouchBehavior) awayTouchBehavior = new AwayTouchBehavior(OnTouchBegin, OnTouchMove, OnTouchEnd, null, null);
+			if (touchObject is Image) {
+				attachTouchListenerTo(Image(touchObject).mesh, iPickingCollider, _useStageForRelease);
+			}
+			else if (touchObject is Entity) {
+				if (!awayTouchBehavior) awayTouchBehavior = new AwayTouchBehavior(OnTouchBegin, OnTouchMove, OnTouchEnd, OnTouchOver, OnTouchOut, OnTouchHoverClick);
 				awayTouchBehavior.addListenerTo(touchObject, iPickingCollider, _useStageForRelease);
 			}
 			else if (touchObject is DisplayObject) {
-				if (!displaylistTouchBehavior) displaylistTouchBehavior = new DisplayListTouchBehavior(OnTouchBegin, OnTouchMove, OnTouchEnd, null, null);
+				if (!displaylistTouchBehavior) displaylistTouchBehavior = new DisplayListTouchBehavior(OnTouchBegin, OnTouchMove, OnTouchEnd, OnTouchOver, OnTouchOut);
 				displaylistTouchBehavior.addListenerTo(touchObject, _useStageForRelease);
 			}
 		}
@@ -261,7 +271,11 @@ package blaze.away3d
 			//trace("OnTouchOut");
 		}
 		
-		*/
+		protected function OnTouchHoverClick(touch:Touch):void
+		{
+			// current not working correctly... OnTouchOut/OnTouchOver firing every frame while over object
+			trace("OnTouchHoverClick");
+		}
 		
 		override public function addChild(child:ObjectContainer3D):ObjectContainer3D
 		{

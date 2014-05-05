@@ -16,7 +16,7 @@ package blaze.model.scene
 		private var minIndex:int = 0;
 		public var maxIndex:int = 1000;
 		
-		private var _index:int = 0;
+		private var _index:int = -1;
 		private var _lastScene:int = -1;
 		
 		public var indexChange:Signal = new Signal();
