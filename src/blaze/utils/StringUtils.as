@@ -15,7 +15,7 @@ package blaze.utils
 		public static function getFileType(value:String):String
 		{
 			var split:Array = value.split('.');
-			return String(split[split.length-1]).substr(0, 3);
+			return String(split[split.length-1]).substr(0, 3).toLowerCase();
 		}
 	}
 

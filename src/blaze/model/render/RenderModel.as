@@ -32,7 +32,9 @@ package blaze.model.render
 		private var _stage3DVisible		:Boolean = true;
 		public var VisibilityChange		:Signal = new Signal();
 		private var stage:Stage;
-		public var active:Boolean = true;
+		
+		private var _active:Boolean = true;
+		public var renderIndex:int;
 		
 		public function RenderModel(instanceIndex:int):void
 		{
@@ -51,7 +53,7 @@ package blaze.model.render
 			stage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_CREATED, onContextCreated);
 			stage3DProxy.antiAlias = 4;
 			
-			Renderers.addProxy(stage3DProxy.clear, this.update, stage3DProxy.present);
+			renderIndex = Renderers.addProxy(stage3DProxy.clear, this.update, stage3DProxy.present);
 		}
 		
 		private function onContextCreated(e:Stage3DEvent):void 
@@ -164,6 +166,18 @@ package blaze.model.render
 		public function get proxySlotsUsed():int 
 		{
 			return stage3DManager.numProxySlotsUsed;
+		}
+		
+		public function get active():Boolean 
+		{
+			return _active;
+		}
+		
+		public function set active(value:Boolean):void 
+		{
+			if (_active == value) return;
+			_active = value;
+			Renderers.setActive(renderIndex, value);
 		}
 		
 		public function start():void
