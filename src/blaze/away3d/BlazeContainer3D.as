@@ -202,7 +202,9 @@ package blaze.away3d
 		
 		protected function addResizeListener():void
 		{
-			if (scene) resizeBehavior.addResizeListener(Blaze.stage, OnResize);
+			if (scene) {
+				resizeBehavior.addResizeListener(Blaze.stage, OnResize);
+			}
 			else onAddToStage.addOnce(addResizeListener);
 		}
 		

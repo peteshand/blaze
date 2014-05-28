@@ -123,6 +123,7 @@ package blaze.model.render
 			var index:int = updateHandlers.indexOf(updater);
 			if (index != -1) {
 				updateHandlers.splice(index, 1);
+				Renderers.views--;
 				return true;
 			}
 			return false;
@@ -130,6 +131,7 @@ package blaze.model.render
 		
 		private function addUpdater(updater:Function):void
 		{
+			Renderers.views++;
 			removeUpdater(updater);
 			updateHandlers.push(updater);
 		}
@@ -146,6 +148,7 @@ package blaze.model.render
 			if (curIndex != index) {
 				if (curIndex != -1) updateHandlers.splice(curIndex, 1);
 				updateHandlers.splice(index, 0, updater);
+				Renderers.views++;
 			}
 		}
 		

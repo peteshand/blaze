@@ -18,6 +18,7 @@ package blaze.model.render
 		
 		static private var presentCount:int = -1;
 		static private var sprite:Sprite = new Sprite();
+		static public var views:int = 0;
 		
 		static public function addProxy(clearFunction:Function, updateFunction:Function, presentFunction:Function):int 
 		{
@@ -41,32 +42,26 @@ package blaze.model.render
 		static public function setActive(renderIndex:int, value:Boolean):void 
 		{
 			active[renderIndex] = value;
+			
 		}
 		
 		static private function update(e:Event=null):void 
 		{
-			if (totalActive == 0) return;
+			if (views == 0) return;
 			var i:int;
-			//if (presentCount == -1) {
-				//presentCount = 0;
-				for (i = 0; i < clearFunctions.length; i++) 
-				{
-					clearFunctions[i]();
-				}
-				for (i = 0; i < updateFunctions.length; i++) 
-				{
-					updateFunctions[i]();
-				}
-			//}
 			
-			//presentCount++;
-			//if (presentCount >= presentFunctions.length) {
-				for (i = 0; i < presentFunctions.length; i++) 
-				{
-					presentFunctions[i]();
-				}
-				//presentCount = -1;
-			//}
+			for (i = 0; i < clearFunctions.length; i++) 
+			{
+				if (active[i]) clearFunctions[i]();
+			}
+			for (i = 0; i < updateFunctions.length; i++) 
+			{
+				if (active[i]) updateFunctions[i]();
+			}
+			for (i = 0; i < presentFunctions.length; i++) 
+			{
+				if (active[i]) presentFunctions[i]();
+			}
 		}
 		
 		private static function get totalActive():int 
