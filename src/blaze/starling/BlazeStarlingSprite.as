@@ -274,15 +274,19 @@ class LocationSprite extends Sprite
 		OnResize();
 	}
 	
+	private var wasFlattened:Boolean = false;
 	protected function OnResize():void
 	{
-		this.unflatten();
+		if (this.isFlattened) wasFlattened = true;
+		else wasFlattened = false;
+		if (wasFlattened) this.unflatten();
 		this.x = Math.round(viewPort.rect.width * location.x);
 		this.y = Math.round(viewPort.rect.height * location.y);
 		
 		if (scaleToScreen) {
 			this.scaleX = this.scaleY = viewPort.scaleMin;
+			
 		}
-		this.flatten();
+		if (wasFlattened) this.flatten();
 	}
 }

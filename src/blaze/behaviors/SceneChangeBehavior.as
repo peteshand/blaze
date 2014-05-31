@@ -1,6 +1,7 @@
 package blaze.behaviors 
 {
 	import blaze.model.scene.SceneModel;
+	import com.greensock.TweenLite;
 	/**
 	 * ...
 	 * @author Pete Shand
@@ -25,7 +26,7 @@ package blaze.behaviors
 			scene = Blaze.instance(instanceIndex).sceneModel;
 			
 			scene.indexChange.add(OnSceneChange);
-			OnSceneChange();
+			TweenLite.delayedCall(1, OnSceneChange, null, true);
 		}
 		
 		private function OnSceneChange():void 

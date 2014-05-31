@@ -12,6 +12,7 @@ package blaze.behaviors
 		protected var hideTweenLite:TweenLite = new TweenLite(this, 0, {});
 		public var tweenVO:TweenVO = new TweenVO();
 		public var animationShowHide:Boolean = false;
+		public var visOnHide:Boolean = false;
 		
 		private var OnHideComplete:Function;
 		private var OnShowComplete:Function;
