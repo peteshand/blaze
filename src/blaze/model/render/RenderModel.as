@@ -47,7 +47,7 @@ package blaze.model.render
 			
 			stage3DManager = Stage3DManager.getInstance(stage);
 			//stage3DProxy = stage3DManager.getStage3DProxy(instanceIndex, false, Context3DProfile.BASELINE_EXTENDED);
-			stage3DProxy = stage3DManager.getFreeStage3DProxy(false, Context3DProfile.BASELINE_EXTENDED);
+			stage3DProxy = stage3DManager.getFreeStage3DProxy(false, "baselineExtended");
 			stage3DProxy.enableDepthAndStencil = true;
 			
 			stage3DProxy.addEventListener(Stage3DEvent.CONTEXT3D_CREATED, onContextCreated);
@@ -179,6 +179,7 @@ package blaze.model.render
 		public function set active(value:Boolean):void 
 		{
 			if (_active == value) return;
+			trace("active = " + value);
 			_active = value;
 			Renderers.setActive(renderIndex, value);
 		}
@@ -217,6 +218,7 @@ package blaze.model.render
 import away3d.core.managers.Stage3DProxy;
 import blaze.starling.layers.StarlingLayer;
 import flash.display.Stage;
+import flash.display.Stage3D;
 import flash.display3D.Context3DProfile;
 import flash.system.Capabilities;
 import starling.core.Starling;
@@ -250,7 +252,7 @@ class View2DInitializer
 			// I hate using try..catch as logic but the Starling API is shit here
 		}
 		
-		starling = new Starling(StarlingLayerClass, stage, renderModel.stage3DProxy.viewPort, renderModel.stage3DProxy.stage3D, 'auto', Context3DProfile.BASELINE_EXTENDED);
+		starling = new Starling(StarlingLayerClass, stage, renderModel.stage3DProxy.viewPort, renderModel.stage3DProxy.stage3D, 'auto', "baselineExtended");
 		starling.simulateMultitouch = true;
 		starling.enableErrorChecking = Capabilities.isDebugger;
 		starling.start();
