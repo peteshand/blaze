@@ -1,4 +1,4 @@
-package blaze.utils 
+package blaze.math 
 {
 	/**
 	 * ...

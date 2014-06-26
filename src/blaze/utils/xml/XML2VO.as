@@ -1,4 +1,4 @@
-package 
+package blaze.utils.xml
 {
 	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;

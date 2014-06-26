@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <flex-config xmlns="http://www.adobe.com/2006/flex-config">
-  <output>C:\_projects\CBA\blaze\.\bin\blaze.swc</output>
+  <output>C:\_projects\CBA\02_lab\blaze\.\bin\blaze.swc</output>
   <use-network>true</use-network>
   <warnings>true</warnings>
   <benchmark>false</benchmark>
@@ -16,15 +16,15 @@
     <use-resource-bundle-metadata>true</use-resource-bundle-metadata>
     <verbose-stacktraces>false</verbose-stacktraces>
     <source-path>
-      <path-element>c:\_projects\cba\blaze\src</path-element>
-      <path-element>c:\_projects\cba\blaze\lib</path-element>
+      <path-element>c:\_projects\cba\02_lab\blaze\src</path-element>
+      <path-element>c:\_projects\cba\02_lab\blaze\lib</path-element>
     </source-path>
     <external-library-path append="true">
-      <path-element>c:\_projects\cba\blaze\lib\starling.swc</path-element>
-      <path-element>c:\_projects\cba\blaze\lib\as3-signals-v0.9-beta.swc</path-element>
-      <path-element>c:\_projects\cba\blaze\lib\greensock.swc</path-element>
-      <path-element>c:\_projects\cba\blaze\lib\airglobal.swc</path-element>
-      <path-element>c:\_projects\cba\blaze\lib\away3d-core-fp11_4_1_6.swc</path-element>
+      <path-element>c:\_projects\cba\02_lab\blaze\lib\starling.swc</path-element>
+      <path-element>c:\_projects\cba\02_lab\blaze\lib\as3-signals-v0.9-beta.swc</path-element>
+      <path-element>c:\_projects\cba\02_lab\blaze\lib\greensock.swc</path-element>
+      <path-element>c:\_projects\cba\02_lab\blaze\lib\airglobal.swc</path-element>
+      <path-element>c:\_projects\cba\02_lab\blaze\lib\away3d-core-fp11_4_1_6.swc</path-element>
     </external-library-path>
   </compiler>
   <include-classes>
@@ -56,6 +56,7 @@
     <class>blaze.model.tick.Tick</class>
     <class>blaze.model.viewPort.ViewPort</class>
     <class>blaze.model.viewPort.ViewportPoint</class>
+    <class>blaze.services.CrossContextMessenger</class>
     <class>blaze.starling.BlazeStarlingSprite</class>
     <class>blaze.starling.layers.IStarlingLayer</class>
     <class>blaze.starling.layers.StarlingLayer</class>
@@ -66,6 +67,7 @@
     <class>blaze.utils.layout.Alignment</class>
     <class>blaze.utils.layout.Dimensions</class>
     <class>blaze.utils.layout.Orientation</class>
+    <class>blaze.utils.xml.XML2VO</class>
     <class>away3d.events.TouchEvent3D</class>
   </include-classes>
 </flex-config>
