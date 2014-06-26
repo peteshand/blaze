@@ -15,7 +15,7 @@ package blaze.service.p2p
 	 * ...
 	 * @author P.J.Shand
 	 */
-	public class P2PObject 
+	internal class P2PObject 
 	{
 		public var groupID:String;
 		private var serviceURL:String;
@@ -78,12 +78,17 @@ package blaze.service.p2p
 		
 		public function clearAllMsgs():void
 		{
-			for (var i:int = 0; i < frames.length; i++) 
+			/*for (var i:int = 0; i < frames.length; i++) 
 			{
 				for (var j:int = 0; j < frames[i].length; j++) 
 				{
 					frames[i].splice(0, 1);
 				}
+			}*/
+			frames = new Vector.<Vector.<Object>>(totalFrameBuffers+1, true);
+			for (var i:int = 0; i < frames.length; i++) 
+			{
+				frames[i] = new Vector.<Object>();
 			}
 		}
 		
@@ -125,10 +130,9 @@ package blaze.service.p2p
 		{
 			MsgReceived(frames);
 			if (group) {
-				//group.sendToAllNeighbors(frames);
-				group.post(frames);
-				clearAllMsgs();
+				group.sendToAllNeighbors(frames);
 			}
+			clearAllMsgs();
 		}
 		
 		public function dispose():void
@@ -197,20 +201,21 @@ package blaze.service.p2p
 		
 		private function setupGroup():void
 		{
-			if (CONFIG::air) {
-				groupspec = new GroupSpecifier(groupID);
-				groupspec.multicastEnabled = true;
-				groupspec.postingEnabled = true;
-				groupspec.ipMulticastMemberUpdatesEnabled = true;
-				groupspec.routingEnabled = true;
-				groupspec.objectReplicationEnabled = true;
-				groupspec.serverChannelEnabled = true;
-				groupspec.addIPMulticastAddress("225.225.0.1:30303");
-				
-				group = new NetGroup(nc,groupspec.groupspecWithAuthorizations());
-				group.addEventListener(NetStatusEvent.NET_STATUS, netStatus);	
+			groupspec = new GroupSpecifier(groupID);
+			groupspec.multicastEnabled = true;
+			groupspec.postingEnabled = true;
+			groupspec.ipMulticastMemberUpdatesEnabled = true;
+			groupspec.routingEnabled = true;
+			groupspec.objectReplicationEnabled = true;
+			groupspec.serverChannelEnabled = true;
+			groupspec.addIPMulticastAddress("225.225.0.1:30303");
+			
+			group = new NetGroup(nc,groupspec.groupspecWithAuthorizations());
+			group.addEventListener(NetStatusEvent.NET_STATUS, netStatus);	
+			/*if (CONFIG::air) {
 				group.replicationStrategy = NetGroupReplicationStrategy.LOWEST_FIRST;
-			}
+			}*/
+			connected = true;
 		}
 		
 		

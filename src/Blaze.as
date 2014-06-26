@@ -16,6 +16,7 @@ package
 	 */
 	public class Blaze 
 	{
+		public static var VERSION:String = "0.2.1";
 		/** stage is of type flash.display.Stage, should be set at application initialization*/
 		private static var _stage:Stage;
 		private static var _instances:Vector.<BlazeInstance> = new Vector.<BlazeInstance>(8);

@@ -49,6 +49,10 @@
     <class>blaze.behaviors.touch.StarlingTouchBehavior</class>
     <class>blaze.behaviors.touch.Touch</class>
     <class>blaze.behaviors.touch.TouchPhase</class>
+    <class>blaze.events.ReplayMouseEvent</class>
+    <class>blaze.math.Intersect</class>
+    <class>blaze.math.Math2</class>
+    <class>blaze.math.Range</class>
     <class>blaze.model.language.LanguageModel</class>
     <class>blaze.model.render.Renderers</class>
     <class>blaze.model.render.RenderModel</class>
@@ -56,14 +60,18 @@
     <class>blaze.model.tick.Tick</class>
     <class>blaze.model.viewPort.ViewPort</class>
     <class>blaze.model.viewPort.ViewportPoint</class>
-    <class>blaze.services.CrossContextMessenger</class>
+    <class>blaze.service.coms.CrossContextGroup</class>
+    <class>blaze.service.coms.CrossContextMessenger</class>
+    <class>blaze.service.keyboard.KeyboardMap</class>
+    <class>blaze.service.p2p.P2PObject</class>
+    <class>blaze.service.p2p.P2PService</class>
+    <class>blaze.service.replay.InstantReplay</class>
     <class>blaze.starling.BlazeStarlingSprite</class>
     <class>blaze.starling.layers.IStarlingLayer</class>
     <class>blaze.starling.layers.StarlingLayer</class>
     <class>blaze.starling.utils.ImageLoader</class>
-    <class>blaze.utils.Math2</class>
-    <class>blaze.utils.Range</class>
     <class>blaze.utils.StringUtils</class>
+    <class>blaze.utils.delay.Delay</class>
     <class>blaze.utils.layout.Alignment</class>
     <class>blaze.utils.layout.Dimensions</class>
     <class>blaze.utils.layout.Orientation</class>

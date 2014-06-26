@@ -183,7 +183,7 @@ class InstantReplayObject
 		displayObject.addEventListener(MouseEvent.ROLL_OUT, OnMouseEvent);
 		displayObject.addEventListener(MouseEvent.ROLL_OVER, OnMouseEvent);
 		
-		CONFIG::air {
+		/*CONFIG::air {
 			displayObject.addEventListener(MouseEvent.CONTEXT_MENU, OnMouseEvent);
 			displayObject.addEventListener(MouseEvent.MIDDLE_CLICK, OnMouseEvent);
 			displayObject.addEventListener(MouseEvent.MIDDLE_MOUSE_DOWN, OnMouseEvent);
@@ -192,15 +192,15 @@ class InstantReplayObject
 			displayObject.addEventListener(MouseEvent.RIGHT_CLICK, OnMouseEvent);
 			displayObject.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN, OnMouseEvent);
 			displayObject.addEventListener(MouseEvent.RIGHT_MOUSE_UP, OnMouseEvent);
-		}
+		}*/
 	}
 	
 	private function OnMouseEvent(e:MouseEvent):void 
 	{
-		CONFIG::air {
+		/*CONFIG::air {
 			currentActions.mouseEvents.push(new ReplayMouseEvent(e.type, e.bubbles, e.cancelable, e.localX, e.localY, e.relatedObject, e.ctrlKey, e.altKey, e.shiftKey, e.buttonDown, e.delta, e.commandKey, e.controlKey, e.clickCount));
 			return;
-		}
+		}*/
 		currentActions.mouseEvents.push(new ReplayMouseEvent(e.type, e.bubbles, e.cancelable, e.localX, e.localY, e.relatedObject, e.ctrlKey, e.altKey, e.shiftKey, e.buttonDown, e.delta));
 	}
 	
