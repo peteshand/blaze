@@ -108,8 +108,6 @@ package
 		/** Initialize away3d linked mediators */
 		static public function set contextView(view:DisplayObjectContainer):void 
 		{
-			trace("awayCollectionData.length = " + awayCollectionData.length);
-			trace(view);
 			for (var i:int = 0; i < awayCollectionData.length; i++) view.addChild(awayCollectionData[i][0]);
 		}
 		

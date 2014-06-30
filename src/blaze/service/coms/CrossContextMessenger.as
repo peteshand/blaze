@@ -22,5 +22,11 @@ package blaze.service.coms
 			if (!crossContextGroups[id]) crossContextGroups[id] = new CrossContextGroup();
 			return crossContextGroups[id];
 		}
+		
+		public function group(id:String):CrossContextGroup
+		{
+			if (!crossContextGroups[id]) crossContextGroups[id] = new CrossContextGroup();
+			return crossContextGroups[id];
+		}
 	}
 }
